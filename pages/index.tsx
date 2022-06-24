@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 const Home: NextPage = () => {
   return (
     <Layout>
-      Hello world!
+      hello world!
     </Layout>
   )
 }
