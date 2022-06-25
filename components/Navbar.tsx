@@ -1,5 +1,5 @@
 // React.js
-import React from 'react'
+import React, { useState } from 'react'
 
 const Navbar = () => {
 
@@ -13,44 +13,79 @@ const Navbar = () => {
     `} </style>
   }
 
+  // State
+  const [MobileMenu, setMobileMenu] = useState(false)
+
   return (
     <>
       {renderCSS()}
 
-      <nav className="bg-white shadow dark:bg-gray-800">
-        <div className="container px-6 py-3 mx-auto">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <a className="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">Brand</a>
+      <nav className='bg-white shadow dark:bg-gray-800'>
+        <div className='container px-6 py-3 mx-auto'>
+          <div className='flex flex-col md:flex-row md:justify-between md:items-center'>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center'>
+                <a className='text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300' href='#'>Brand</a>
               </div>
               {/* Mobile menu button */}
-              <div className="flex md:hidden">
-                <button type="button" className="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
-                  <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-                    <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
-                  </svg>
+              <div className='flex md:hidden'>
+                <button
+                  type='button'
+                  className='text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400'
+                  aria-label='toggle menu'
+                  onClick={() => setMobileMenu(!MobileMenu)}
+                >
+                  {
+                    MobileMenu ?
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      :
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M22 18.0048C22 18.5544 21.5544 19 21.0048 19H12.9952C12.4456 19 12 18.5544 12 18.0048C12 17.4552 12.4456 17.0096 12.9952 17.0096H21.0048C21.5544 17.0096 22 17.4552 22 18.0048Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M22 12.0002C22 12.5499 21.5544 12.9954 21.0048 12.9954H2.99519C2.44556 12.9954 2 12.5499 2 12.0002C2 11.4506 2.44556 11.0051 2.99519 11.0051H21.0048C21.5544 11.0051 22 11.4506 22 12.0002Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M21.0048 6.99039C21.5544 6.99039 22 6.54482 22 5.99519C22 5.44556 21.5544 5 21.0048 5H8.99519C8.44556 5 8 5.44556 8 5.99519C8 6.54482 8.44556 6.99039 8.99519 6.99039H21.0048Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                  }
                 </button>
               </div>
             </div>
-            {/* Mobile Menu open: "block", Menu closed: "hidden"  */}
-            
-            {/* 
-            
-            - Create state to conditionally add hidden or block to show and hide menu, invert the state by clicking on the button
-            - Change the icon of the button based on state too 
-            */}
 
-            <div className="items-center md:flex">
-              <div className="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1">
-                <a className="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0" href="#">Home</a>
-                <a className="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0" href="#">Blog</a>
-                <a className="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0" href="#">Compoents</a>
-                <a className="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0" href="#">Courses</a>
+            {/* Mobile Menu open: 'block', Menu closed: 'hidden'  */}
+            <div className={`items-center md:flex ${MobileMenu ? 'block' : 'hidden'}`}>
+              <div className='flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1'>
+                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Home</a>
+                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Blog</a>
+                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Compoents</a>
+                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Courses</a>
               </div>
-              <div className="flex items-center py-2 -mx-1 md:mx-0">
-                <a className="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto" href="#">Login</a>
-                <a className="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto" href="#">Join free</a>
+              <div className='flex items-center py-2 -mx-1 md:mx-0'>
+                <a className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto' href='#'>Login</a>
+                <a className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto' href='#'>Join free</a>
               </div>
             </div>
           </div>
