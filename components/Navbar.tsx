@@ -1,7 +1,18 @@
 // React.js
 import React, { useState } from 'react'
 
-const Navbar = () => {
+const Navbar = ({
+  title = { text: 'Brand', to: '/' },
+  navLinks = [
+    {text: 'about', to: 'about'},
+    {text: 'places', to: 'places'},
+    {text: 'contact'},
+  ],
+  menuButtons = [
+    {text: 'Login', to: 'login', colour: 'gray', hoverColour: 'blue'},
+    {text: 'Join for free', to: 'register'},
+  ],
+}:any) => {
 
   // Scopped CSS
   const renderCSS = () => {
@@ -25,7 +36,12 @@ const Navbar = () => {
           <div className='flex flex-col md:flex-row md:justify-between md:items-center'>
             <div className='flex items-center justify-between'>
               <div className='flex items-center'>
-                <a className='text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300' href='#'>Brand</a>
+                <a 
+                  className='text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300' 
+                  href={ title ? title.to : '#' }
+                >
+                  { title ? title.text : title }
+                </a>
               </div>
               {/* Mobile menu button */}
               <div className='flex md:hidden'>
@@ -78,14 +94,43 @@ const Navbar = () => {
             {/* Mobile Menu open: 'block', Menu closed: 'hidden'  */}
             <div className={`items-center md:flex ${MobileMenu ? 'block' : 'hidden'}`}>
               <div className='flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1'>
-                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Home</a>
-                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Blog</a>
-                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Compoents</a>
-                <a className='my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0' href='#'>Courses</a>
+                {
+                  navLinks.map((link:any, index:any) => {
+                    const useLinkText = link.text ? link.text : link
+                    const useLinkTo = link.to ? link.to : '#'
+                    const useLinkTextSize = link.textSize ? link.textSize : 'sm'
+                    return (
+                      <a 
+                        key={index} 
+                        className={`my-1 text-${useLinkTextSize} leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0`}
+                        href={useLinkTo}
+                      >
+                        {useLinkText}
+                      </a>
+                    )
+                  })
+                }
+
               </div>
               <div className='flex items-center py-2 -mx-1 md:mx-0'>
-                <a className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto' href='#'>Login</a>
-                <a className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto' href='#'>Join free</a>
+                {
+                  menuButtons.map((button:any, index:any) => {
+                    const useButtonText = button.text ? button.text : button
+                    const useButtonTo = button.to ? button.to : '#'
+                    const useColour = button.colour ? button.colour : 'blue'
+                    const useHoverColour = button.hoverColour ? button.hoverColour : 'gray'
+                    const useButtonTextSize = button.textSize ? button.textSize : 'sm'
+
+                    return (
+                      <a 
+                        key={index}
+                        className={`block w-1/2 px-3 py-2 mx-1 text-${useButtonTextSize} font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-${useColour}-500 rounded-md hover:bg-${useHoverColour}-600 md:mx-2 md:w-auto`} 
+                        href={useButtonTo}
+                      >
+                        {useButtonText}
+                      </a>
+                    )})
+                }
               </div>
             </div>
           </div>
