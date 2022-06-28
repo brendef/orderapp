@@ -1,6 +1,18 @@
-import React from 'react'
+// React JS
+import React, { useState } from 'react'
+// Firebase
+import { createUser } from '../../../firebase/functions/Authentication'
 
 const index = () => {
+
+    const [ email, setEmail ] = useState('')
+    const [ password, setPassword ] = useState('')
+
+    const handleRegister = ( event:any ) => {
+        event.preventDefault()
+        createUser(email, password)
+    }
+
     return (
 
         <div className="bg-white dark:bg-gray-900">
@@ -14,10 +26,12 @@ const index = () => {
                         </div>
 
                         <div className="mt-8">
-                            <form>
+                            <form onSubmit={handleRegister}>
                                 <div>
                                     <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                                    <input type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <input 
+                                        onChange={ event => setEmail(event.target.value) }
+                                        type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
 
                                 <div className="mt-6">
@@ -28,7 +42,9 @@ const index = () => {
                                     <input type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 my-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                     
                                     <label htmlFor="confirmPassword" className="text-sm text-gray-600 dark:text-gray-200">Confirm Password</label>
-                                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <input 
+                                        onChange={ event => setPassword(event.target.value) }
+                                        type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
 
                                 <div className="mt-6">
