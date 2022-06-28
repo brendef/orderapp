@@ -1,6 +1,8 @@
-import { initializeApp } from "firebase/app"
+import { initializeApp } from 'firebase/app'
+// Instances
 import { getAuth } from 'firebase/auth'
 
+// Details 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -13,4 +15,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig)
 
+// Create instane of auth
 export const auth = getAuth(firebaseApp)
