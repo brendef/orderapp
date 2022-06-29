@@ -1,7 +1,6 @@
 // Next JS
 import Head from 'next/head'
 
-
 const Layout = ({ 
     children,
     title=' Next JS App "Title" ',
@@ -23,7 +22,6 @@ const Layout = ({
             </main>
             <footer>Footer</footer>
         </div>
-        
     </>
   )
 }

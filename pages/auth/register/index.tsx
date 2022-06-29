@@ -1,20 +1,29 @@
 // React JS
 import React, { useState } from 'react'
-// Firebase
-import { createUser } from '../../../firebase/functions/Authentication'
+// Next JS
+import Link from 'next/link'
+import { useAuth } from '../../../firebase/contexts/AuthContext'
 
 const index = () => {
 
+    const { createUser } = useAuth()
+    
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
+    const [ error, setError ] = useState('')
 
-    const handleRegister = ( event:any ) => {
+    const handleRegister = async ( event:any ) => {
+        // Prevent page reload
         event.preventDefault()
-        createUser(email, password)
+        setError('')
+        try {
+            await createUser(email, password) 
+        } catch (error:any) {
+            setError(error)
+        }
     }
 
     return (
-
         <div className="bg-white dark:bg-gray-900">
             <div className="flex justify-center h-screen">
                 <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
@@ -56,7 +65,7 @@ const index = () => {
 
                             </form>
 
-                            <p className="mt-6 text-sm text-center text-gray-400">Already have an account? <a href="#" className="text-blue-500 focus:outline-none focus:underline hover:underline">Sign in</a>.</p>
+                            <p className="mt-6 text-sm text-center text-gray-400">Already have an account? <Link href='/auth/login'><a className="text-blue-500 focus:outline-none focus:underline hover:underline">Sign in</a></Link>.</p>
                         </div>
                     </div>
                 </div>
