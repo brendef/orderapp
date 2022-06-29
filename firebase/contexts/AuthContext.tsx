@@ -1,7 +1,7 @@
 // React JS
 import { createContext, useContext, useEffect, useState } from 'react'
 // Firebase
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 // Auth 
 import { auth } from '../config'
 
@@ -10,6 +10,7 @@ const AuthContext = createContext<any>({})
 export const AuthContextProvider = ({ children }:any) => {
 
   const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
   const createUser = (email:any, password:any) => {
     // Place code to register a user with a provider here
@@ -23,12 +24,22 @@ export const AuthContextProvider = ({ children }:any) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
 
+  const logout = async () => {
+    setUser(null)
+    await signOut(auth)
+  }
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser:any) => setUser(currentUser))    
+    
+    const unsubscribe = onAuthStateChanged(auth, (currentUser:any) => {
+      currentUser ? setUser(currentUser) : setUser(null)
+      setLoading(false)
+    })
+
     return () => unsubscribe()
   }, [])
   
-  return <AuthContext.Provider value={{ user, createUser, authenticateUser }}>{ children }</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, createUser, authenticateUser }}>{ loading ? null : children }</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)
