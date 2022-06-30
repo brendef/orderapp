@@ -1,24 +1,21 @@
 // Next.js
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import ProtectedRoute from '../components/ProtectedRoute'
 // Firebase Auth Context
 import { AuthContextProvider } from '../firebase/contexts/AuthContext'
 // CSS
 import '../styles/globals.css'
-
-const openRoutes = [
-  '/', 
-  '/auth/login', 
-  '/auth/register',
-]
+// Protected Routes
+import { ProtectedRoutes } from '../routes.config'
+// Components
+import ProtectedRoute from '../components/ProtectedRoute'
 
 const App = ({ Component, pageProps }: AppProps) => {
 
   const router = useRouter()
   return (
     <AuthContextProvider>{ 
-      openRoutes.includes(router.pathname) ? 
+      !ProtectedRoutes.includes(router.pathname) ? 
         ( <Component {...pageProps} /> ) : 
         ( <ProtectedRoute> <Component {...pageProps} /> </ProtectedRoute> ) 
     }</AuthContextProvider>
