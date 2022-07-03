@@ -4,7 +4,9 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 // Firebase Auth
 import { useAuth } from '../../../firebase/contexts/AuthContext'
-// External packages
+// Internal Packages
+import getAuthErrorMessage from '../../../firebase/errors/AuthErrorMessages'
+// External Packages
 import * as EmailValidator from 'email-validator'
 
 const index = () => {
@@ -15,21 +17,17 @@ const index = () => {
     const [error, setError] = useState('')
     const [sentEmail, setSentEmail] = useState(false)
 
-    const handleForgotPassword = (event: any) => {
+    const handleForgotPassword = async (event: any) => {
         event.preventDefault() // Prevent page reload
         setError('')
 
         // Validate email
         if (!EmailValidator.validate(email)) return setError('Please enter a valid email address')
 
-        try {
-            forgotPassword(email)
-            setSentEmail(true)
-        } catch (error: any) {
-            setError(error.message)
-        }
+        await forgotPassword(email)
+            .then(() => setSentEmail(true))     
+            .catch ((error: any) => setError(getAuthErrorMessage(error.code)))
     }
-
 
     return (
 

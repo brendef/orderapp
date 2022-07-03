@@ -5,6 +5,8 @@ import Link from 'next/link'
 // Firebase Auth
 import { useAuth } from '../../../firebase/contexts/AuthContext'
 import { useRouter } from 'next/router'
+// Internal Functions
+import getAuthErrorMessage from '../../../firebase/errors/AuthErrorMessages'
 // External Packagers
 import * as EmailValidator from 'email-validator'
 
@@ -21,20 +23,16 @@ const index = () => {
   const handleLogin = async (event: any) => {
     event.preventDefault() // Prevent page reload
     setError('')
-    
+
     // Validate email
     if (!EmailValidator.validate(email)) return setError('Please enter a valid email address')
 
-    try {
-      await authenticateUser(email, password)
-      router.push('/home')
-    } catch (error: any) {
-      setError(error.message)
-    }
+    await authenticateUser(email, password)
+      .then(() => router.push('/home'))
+      .catch((error: any) => setError(getAuthErrorMessage(error.code)))
   }
 
   return (
-
     <div className='bg-white dark:bg-gray-900'>
       <div className='flex justify-center h-screen'>
         <div className='hidden bg-cover lg:block lg:w-2/3 bg-blue-300'>
@@ -52,10 +50,10 @@ const index = () => {
             <div className='text-center'>
               <h2 className='text-4xl font-bold text-center text-gray-700 dark:text-white'>Order App Name</h2>
 
-              { error === '' ?
-                  <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign in to access your account</p>
-                  :
-                  <p className='mt-3 text-red-400 dark:text-red-800'>{error}</p> 
+              {error === '' ?
+                <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign in to access your account</p>
+                :
+                <p className='mt-3 text-red-400 dark:text-red-800'>{error}</p>
               }
 
             </div>

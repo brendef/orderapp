@@ -6,6 +6,7 @@ import { useAuth } from '../../../firebase/contexts/AuthContext'
 import { useRouter } from 'next/router'
 // Internal functions
 import ValidatePassword from '../../../lib/functions/ValidatePassword'
+import getAuthErrorMessage from '../../../firebase/errors/AuthErrorMessages'
 // External Packagers
 import * as EmailValidator from 'email-validator'
 
@@ -21,6 +22,7 @@ const index = () => {
     const router = useRouter()
 
     const handleRegister = async ( event:any ) => {
+
         event.preventDefault() // Prevent page reload
         setError('')
 
@@ -32,12 +34,9 @@ const index = () => {
         const validPassword = ValidatePassword(password)
         if (validPassword !== '') return setError(validPassword)
 
-        try {
-            await createUser(email, password) 
-            router.push('/home')
-        } catch (error:any) {
-            setError(error.message)
-        }
+        await createUser(email, password) 
+            .then(() => router.push('/home'))
+            .catch((error:any) => setError(getAuthErrorMessage(error.code)))
     }
 
     return (
