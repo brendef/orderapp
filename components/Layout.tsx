@@ -1,5 +1,7 @@
 // Next JS
 import Head from 'next/head'
+// Components
+import Navbar from '../components/Navbar'
 
 const Layout = ({ 
     children,
@@ -16,7 +18,7 @@ const Layout = ({
             <meta name='description' content=' A description of your app "Description" ' />
         </Head>
         <div className={``}>
-            <header>Header</header>
+            <Navbar />
             <main className={``}>
                 { children }
             </main>
