@@ -5,7 +5,7 @@ import Link from 'next/link'
 // Firebase Auth
 import { useAuth } from '../../../firebase/contexts/AuthContext'
 // External packages
-import * as EmailValidator from 'email-validator';
+import * as EmailValidator from 'email-validator'
 
 const index = () => {
 

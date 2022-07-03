@@ -5,6 +5,8 @@ import Link from 'next/link'
 // Firebase Auth
 import { useAuth } from '../../../firebase/contexts/AuthContext'
 import { useRouter } from 'next/router'
+// External Packagers
+import * as EmailValidator from 'email-validator'
 
 const index = () => {
 
@@ -17,10 +19,11 @@ const index = () => {
   const router = useRouter()
 
   const handleLogin = async (event: any) => {
-    // Prevent page reload
-    event.preventDefault()
-
+    event.preventDefault() // Prevent page reload
     setError('')
+    
+    // Validate email
+    if (!EmailValidator.validate(email)) return setError('Please enter a valid email address')
 
     try {
       await authenticateUser(email, password)
