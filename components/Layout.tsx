@@ -24,7 +24,6 @@ const Layout = ({
             </main>
             <footer>Footer</footer>
         </div>
-        
     </>
   )
 }

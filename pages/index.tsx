@@ -2,7 +2,6 @@
 import type { NextPage } from 'next'
 // Components
 import Layout from '../components/Layout'
-
 // -----------------------------------------------------------------------------------------------------------------------
 
 // index
