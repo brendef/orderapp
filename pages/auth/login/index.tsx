@@ -70,7 +70,7 @@ const index = () => {
                 <div className='mt-6'>
                   <div className='flex justify-between mb-2'>
                     <label htmlFor='password' className='text-sm text-gray-600 dark:text-gray-200'>Password</label>
-                    <a href='#' className='text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline'>Forgot password?</a>
+                    <Link href='/auth/forgot'><a href='#' className='text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline'>Forgot password?</a></Link>
                   </div>
 
                   <input
