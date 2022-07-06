@@ -2,15 +2,15 @@
 import React, { useState } from 'react'
 
 const Navbar = ({
-  title = { text: 'Brand', to: '/' },
+  title = { text: 'brand', to: '/' },
   navLinks = [
-    {text: 'about', to: 'about'},
-    {text: 'places', to: 'places'},
-    {text: 'contact'},
+    {text: 'about', to: 'about', textSize: 'sm', mobileTextSize: '2xl'},
+    {text: 'places', to: 'places', textSize: 'sm', mobileTextSize: '2xl'},
+    {text: 'contact', textSize: 'sm', mobileTextSize: '2xl'},
   ],
   menuButtons = [
-    {text: 'Login', to: 'login', colour: 'gray', hoverColour: 'blue'},
-    {text: 'Join for free', to: 'register'},
+    {text: 'login', to: 'auth/login', colour: 'primary', hoverColour: 'primary-600', textSize: 'sm', mobileTextSize: 'lg', padding: 'px-2 py-5 md:px-4 md:py-2'},
+    {text: 'join for free', to: 'auth/register', colour: 'secondary', textSize: 'sm', mobileTextSize: 'lg', padding: 'px-2 py-5 md:px-4 md:py-2'},
   ],
 }:any) => {
 
@@ -91,7 +91,6 @@ const Navbar = ({
               </div>
             </div>
 
-            {/* Mobile Menu open: 'block', Menu closed: 'hidden'  */}
             <div className={`items-center md:flex ${MobileMenu ? 'block' : 'hidden'}`}>
               <div className='flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1'>
                 {
@@ -99,10 +98,11 @@ const Navbar = ({
                     const useLinkText = link.text ? link.text : link
                     const useLinkTo = link.to ? link.to : '#'
                     const useLinkTextSize = link.textSize ? link.textSize : 'sm'
+                    const useMobileLinkTextSize = link.mobileTextSize ? link.mobileTextSize : '2xl'
                     return (
                       <a 
                         key={index} 
-                        className={`my-1 text-${useLinkTextSize} leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0`}
+                        className={`my-5 text-${useMobileLinkTextSize} md:text-${useLinkTextSize} leading-5 text-gray-700 transition-colors duration-200 transform dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline md:mx-4 md:my-0`}
                         href={useLinkTo}
                       >
                         {useLinkText}
@@ -117,14 +117,16 @@ const Navbar = ({
                   menuButtons.map((button:any, index:any) => {
                     const useButtonText = button.text ? button.text : button
                     const useButtonTo = button.to ? button.to : '#'
-                    const useColour = button.colour ? button.colour : 'blue'
-                    const useHoverColour = button.hoverColour ? button.hoverColour : 'gray'
+                    const useColour = button.colour ? button.colour : 'primary'
+                    const useHoverColour = button.hoverColour ? button.hoverColour : 'secondary'
                     const useButtonTextSize = button.textSize ? button.textSize : 'sm'
+                    const useMobileButtonTextSize = button.mobileTextSize ? button.mobileTextSize : '2xl'
+                    const usePadding = button.padding ? button.padding : ''
 
                     return (
                       <a 
                         key={index}
-                        className={`block w-1/2 px-3 py-2 mx-1 text-${useButtonTextSize} font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-${useColour}-500 rounded-md hover:bg-${useHoverColour}-600 md:mx-2 md:w-auto`} 
+                        className={`block w-1/2 ${usePadding} mx-1 text-${useMobileButtonTextSize} md:text-${useButtonTextSize} font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-${useColour} rounded-md hover:bg-${useHoverColour} md:mx-2 md:w-auto`} 
                         href={useButtonTo}
                       >
                         {useButtonText}

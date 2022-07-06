@@ -1,5 +1,5 @@
 // React JS
-import React, { useState } from 'react'
+import React, { createElement, useState } from 'react'
 // Next JS
 import Link from 'next/link'
 // Firebase Auth
@@ -30,7 +30,6 @@ const index = () => {
     }
 
     return (
-
         <div className='bg-white dark:bg-gray-900'>
             <div className='flex justify-center h-screen'>
                 <div className='flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6'>
