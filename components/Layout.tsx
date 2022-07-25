@@ -18,7 +18,7 @@ const Layout = ({
             <meta name='description' content=' A description of your app "Description" ' />
         </Head>
         <div className={``}>
-            <Navbar />
+            <Navbar  />
             <main className={``}>
                 { children }
             </main>
