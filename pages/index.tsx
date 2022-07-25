@@ -2,7 +2,6 @@
 import type { NextPage } from 'next'
 // Components
 import Layout from '../components/Layout'
-import Card from '../components/Card'
 
 // -----------------------------------------------------------------------------------------------------------------------
 
@@ -10,7 +9,7 @@ import Card from '../components/Card'
 const Home: NextPage = () => {
   return (
     <Layout>
-      <Card />
+      <h1>hello world</h1>
     </Layout>
   )
 }
